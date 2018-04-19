@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link as ReactScrollLink } from 'react-scroll';
-import * as T from '../../../Theme';
+import * as T from '../../Theme';
 
 export const A = T.A.extend`
   font-size: 14px;

@@ -2,15 +2,15 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
-import App from '../../components/App';
-import Header from '../../components/Header';
-import { fontImport } from '../libraries/fonts';
+import App from '../components/App';
+import Header from '../components/Header';
+import { fontImports } from '../libraries/fonts';
 
 const Default = ({ title, url, children }) => (
   <App>
     <Helmet>
       <title>{title}</title>
-      {fontImport.map(font => <link href={font} rel="stylesheet" />)}
+      {fontImports.map(font => <link href={font} rel="stylesheet" />)}
     </Helmet>
     <Header pathname={url.pathname} />
     {children}

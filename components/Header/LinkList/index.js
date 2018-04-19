@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '../../../../routes';
+import { Link } from '../../../routes';
 import { A, RightNav } from './styles';
 import targets from './targets';
 import ScrollLink from './ScrollLink';
@@ -12,11 +12,7 @@ type Props = {
   logout: Function
 };
 
-const RightLinkList = ({
-  pathname,
-  authenticated,
-  logout
-}: Props) => (
+const RightLinkList = ({ pathname, authenticated, logout }: Props) => (
   <RightNav>
     {targets.map(t => <ScrollLink {...t} />)}
     {authenticated && (

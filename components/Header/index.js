@@ -2,7 +2,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import RightLinkList from './LinkList';
-import { Link } from '../../../routes';
+import { Link } from '../../routes';
 import { Header as StyledHeader, Img } from './styles';
 import connect from './store';
 
@@ -14,11 +14,7 @@ type Props = {
   }
 };
 
-const Header = ({
-  pathname,
-  authenticated,
-  actions: { logout }
-}: Props) => (
+const Header = ({ pathname, authenticated, actions: { logout } }: Props) => (
   <StyledHeader>
     <Link prefetch href="/" passHref>
       <Img
