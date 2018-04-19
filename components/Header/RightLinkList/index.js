@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Link } from '../../../routes';
 import { A, RightNav } from './styles';
 import targets from './targets';
-import ScrollLink from './ScrollLink';
 
 type Props = {
   pathname: string,
@@ -14,12 +13,13 @@ type Props = {
 
 const RightLinkList = ({ pathname, authenticated, logout }: Props) => (
   <RightNav>
-    {targets.map(t => <ScrollLink {...t} />)}
-    {authenticated && (
-      <Link prefetch route="dashboard" passHref>
-        <A active={pathname === '/dashboard'}>MY BUSINESSES</A>
+    {targets.map(t => (
+      <Link prefetch route={t.to} passHref>
+        <A active={pathname === t.to}>
+          <i className={t.icon} />
+        </A>
       </Link>
-    )}
+    ))}
     {authenticated && (
       <Link prefetch route="signin" passHref>
         <A active={pathname === '/sign_up'} onClick={() => logout()}>

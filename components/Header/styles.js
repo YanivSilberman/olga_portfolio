@@ -12,10 +12,11 @@ export const Header = styled.header`
   align-items: center;
   background: transparent;
   position: fixed;
-  width: 80%;
+  width: 70%;
   z-index: 9999;
   left: 0;
   right: 0;
+  height: 150px;
 
   @media ${props => props.theme.media.maxEreader} {
     flex-direction: column;
@@ -23,26 +24,11 @@ export const Header = styled.header`
   }
 `;
 
-export const MoreButton = styled.i`
-  position: absolute;
-  right: 0;
-  top: 40px;
-  font-size: 25px;
-  display: 'none';
-
-  @media ${props => props.theme.media.maxEreader} {
-    display: ${props => (props.displayLearnMore ? 'block' : 'none')};
-  }
-
-  @media ${props => props.theme.media.minPortrait} {
-    display: 'none';
-  }
-`;
-
-export const Img = styled.img`
-  width: 70px;
+export const Title = styled.h1`
   display: inline-block;
   vertical-align: middle;
-  margin-right: 15px;
+  margin-right: 20px;
+  font-size: 25px;
   cursor: pointer;
+  color: ${props => props.theme.colors.dark};
 `;

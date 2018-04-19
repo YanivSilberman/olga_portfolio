@@ -1,9 +1,10 @@
 // @flow
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import RightLinkList from './LinkList';
+import RightLinkList from './RightLinkList';
+import LeftLinkList from './LeftLinkList';
 import { Link } from '../../routes';
-import { Header as StyledHeader, Img } from './styles';
+import { Header as StyledHeader, Title } from './styles';
 import connect from './store';
 
 type Props = {
@@ -17,11 +18,9 @@ type Props = {
 const Header = ({ pathname, authenticated, actions: { logout } }: Props) => (
   <StyledHeader>
     <Link prefetch href="/" passHref>
-      <Img
-        alt="up"
-        src="https://s3-us-west-2.amazonaws.com/up-assets/up_logo.png"
-      />
+      <Title>Olga Sanchis</Title>
     </Link>
+    <LeftLinkList pathname={pathname} />
     <RightLinkList
       pathname={pathname}
       authenticated={authenticated}

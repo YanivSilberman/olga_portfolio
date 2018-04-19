@@ -6,13 +6,8 @@ export const fontImports = [
 
 export const fontAwesome = [
   {
-    src: 'https://use.fontawesome.com/releases/v5.0.10/js/brands.js',
+    src: 'https://use.fontawesome.com/releases/v5.0.10/css/all.css',
     int:
-      'sha384-6jhVhr5a+Z1nLr9h+fd7ocMEo847wnGFelCHddaOOACUeZNoQwFXTxh4ysXVam8u'
-  },
-  {
-    src: 'https://use.fontawesome.com/releases/v5.0.10/js/fontawesome.js',
-    int:
-      'sha384-M2FSA4xMm1G9m4CNXM49UcDHeWcDZNucAlz1WVHxohug0Uw1K+IpUhp/Wjg0y6qG'
+      'sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg'
   }
 ];
