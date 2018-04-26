@@ -34,7 +34,7 @@ const RightLinkList = ({ pathname, authenticated, logout }: Props) => (
         </A>
       </Link>
     )}
-    {!authenticated && (
+    {authenticated && (
       <Link prefetch href="/create" passHref>
         <A>
           <i className="fas fa-plus" />

@@ -17,7 +17,7 @@ class Modal extends React.Component {
           <Close onClick={()=>closeModal()} className="material-icons">
             close
           </Close>
-          {!authenticated && (
+          {authenticated && (
             <Edit
               onClick={()=>Router.pushRoute(`/edit/${modalId}`)}
               className="material-icons"

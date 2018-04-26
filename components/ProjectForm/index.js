@@ -3,19 +3,16 @@ import connect from './store';
 import Form from './Form';
 
 const ProjectForm = props => {
-  /*
-    if (props.authenticated) {
-      return (
-        <div>
-          <h1>You are not signed in</h1>
-          <button onClick={() => Router.pushRoute('/signin')}>
-            Go To Sign In
-          </button>
-        </div>
-      );
-    }
-  */
-  console.log('projectId', props.projectId);
+  if (props.authenticated) {
+    return (
+      <div>
+        <h1>You are not signed in</h1>
+        <button onClick={() => Router.pushRoute('/signin')}>
+          Go To Sign In
+        </button>
+      </div>
+    );
+  }
   return <Form {...props} />;
 };
 
