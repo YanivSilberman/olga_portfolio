@@ -13,6 +13,7 @@ const routes = require('next-routes')();
 //
 // ------------ ROUTES ---------------
 // @RANStartRoutes
+routes.add('edit', '/edit/:projectId');
 // @RANEndRoutes
 // ------------ ROUTES ---------------
 //

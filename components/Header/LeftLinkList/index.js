@@ -1,22 +1,43 @@
 // @flow
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '../../../routes';
+// import { ApolloConsumer } from 'react-apollo';
 import { A, LeftNav } from './styles';
-import targets from './targets';
+import connect from './store';
 
-const LeftLinkList = ({ pathname }) => (
+const LeftLinkList = ({
+  activeProjectType,
+  allProjectTypes,
+  actions: { activateType }
+}) => (
   <LeftNav>
-    {targets.map(t => (
-      <Link prefetch route={t.to} passHref>
-        <A active={pathname === t.to}>{t.name}</A>
-      </Link>
-    ))}
+    <A active={activeProjectType === 'ALL'} onClick={() => activateType('ALL')}>
+      All
+    </A>
+    {allProjectTypes &&
+      allProjectTypes.map(t => (
+        <A
+          active={activeProjectType === t.id}
+          onClick={() => activateType(t.id)}
+        >
+          {t.name.replace(/\b\w/g, l => l.toUpperCase())}
+        </A>
+      ))}
   </LeftNav>
 );
 
 LeftLinkList.propTypes = {
-  pathname: PropTypes.string.isRequired
+  allProjectTypes: PropTypes.array,
+  activeProjectType: PropTypes.string,
+  loadActiveType: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    activateType: PropTypes.func.isRequired
+  }).isRequired
 };
 
-export default LeftLinkList;
+LeftLinkList.defaultProps = {
+  allProjectTypes: null,
+  activeProjectType: null
+};
+
+export default connect(LeftLinkList);

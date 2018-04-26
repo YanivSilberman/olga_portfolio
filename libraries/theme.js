@@ -33,7 +33,7 @@ themeList.main = {
     center: 'auto'
   },
   colors: {
-    main: '#52B6AC',
+    main: '#d32f2f',
     success: '#5cb85c',
     warn: '#ffc067',
     error: '#d9534f',
@@ -55,7 +55,7 @@ themeList.main = {
   },
   effects: {
     hover: {
-      mainColor: '&:hover { color: #52B6AC }'
+      mainColor: '&:hover { color: #d32f2f }'
     }
   },
   shadow: {

@@ -13,14 +13,18 @@ export const Header = styled.header`
   background: transparent;
   position: fixed;
   width: 70%;
-  z-index: 9999;
+  z-index: 9997;
   left: 0;
   right: 0;
   height: 150px;
 
-  @media ${props => props.theme.media.maxEreader} {
+  @media ${props => props.theme.media.maxPortrait} {
     flex-direction: column;
     justify-content: center;
+  }
+
+  @media ${props => props.theme.media.maxTablet} {
+    width: 95%;
   }
 `;
 

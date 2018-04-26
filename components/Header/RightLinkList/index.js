@@ -20,10 +20,24 @@ const RightLinkList = ({ pathname, authenticated, logout }: Props) => (
         </A>
       </Link>
     ))}
+    {!authenticated && (
+      <Link prefetch route="signin" passHref>
+        <A active={pathname === 'signin'}>
+          <i className="fas fa-sign-in-alt" />
+        </A>
+      </Link>
+    )}
     {authenticated && (
       <Link prefetch route="signin" passHref>
-        <A active={pathname === '/sign_up'} onClick={() => logout()}>
-          SIGN OUT
+        <A onClick={() => logout()}>
+          <i className="fas fa-sign-out-alt" />
+        </A>
+      </Link>
+    )}
+    {!authenticated && (
+      <Link prefetch href="/create" passHref>
+        <A>
+          <i className="fas fa-plus" />
         </A>
       </Link>
     )}

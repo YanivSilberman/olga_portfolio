@@ -20,7 +20,7 @@ const Header = ({ pathname, authenticated, actions: { logout } }: Props) => (
     <Link prefetch href="/" passHref>
       <Title>Olga Sanchis</Title>
     </Link>
-    <LeftLinkList pathname={pathname} />
+    <LeftLinkList />
     <RightLinkList
       pathname={pathname}
       authenticated={authenticated}

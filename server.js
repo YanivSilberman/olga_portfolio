@@ -8,6 +8,25 @@ const fs = require('fs');
 const cors = require('cors');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
+const AWS = require('aws-sdk');
+const multer = require('multer');
+
+const accessKeyId =  process.env.AWS_ACCESS_KEY || 'AKIAICRO4KECFGWH5OTQ';
+const secretAccessKey = process.env.AWS_SECRET_KEY || "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";
+
+const s3 = new AWS.S3({
+  accessKeyId,
+  secretAccessKey,
+  Bucket: 'olga-portfolio',
+});
+
+AWS.config.update({ accessKeyId, secretAccessKey, subregion: 'us-west-2' });
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  // file size limitation in bytes
+  limits: { fileSize: 52428800 }
+});
 
 dotenv.config();
 
@@ -116,6 +135,18 @@ app.prepare().then(() => {
   );
   server.use(helmet());
   server.use(routerHandler);
+
+  server.post('/upload', upload.single('theseNamesMustMatch'), (req, res) => {
+    s3.putObject({
+        Bucket: 'olga-portfolio',
+        Key: 'project_images',
+        Body: req.file.buffer,
+        ACL: 'public-read',
+      }, (err) => {
+        if (err) return res.status(400).send(err);
+        res.send('File uploaded to S3');
+    });
+  });
 
   server.get(`/favicon.ico`, (req, res) =>
     app.serveStatic(req, res, path.resolve('./static/icons/favicon.ico'))

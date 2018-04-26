@@ -6,7 +6,6 @@ export const LeftNav = styled.nav`
   display: inline-block;
   flex-direction: rows;
   flex: 1;
-  border-left: 1px solid ${props => props.theme.colors.dark};
   padding-left: 20px;
 
   @media ${props => props.theme.media.maxEreader} {

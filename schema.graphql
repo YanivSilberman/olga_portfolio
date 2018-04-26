@@ -1,5 +1,5 @@
 # source: https://api.graph.cool/simple/v1/cjg6y90744orm0109272j1p40
-# timestamp: Thu Apr 19 2018 14:23:44 GMT-0700 (PDT)
+# timestamp: Tue Apr 24 2018 15:22:26 GMT-0700 (PDT)
 
 enum _ModelMutationType {
   CREATED
@@ -12,13 +12,67 @@ type _QueryMeta {
   count: Int!
 }
 
+type AddToGalleryOnProjectPayload {
+  galleriesGallery: Gallery
+  projectProject: Project
+}
+
+type AddToProjectTypeOnProjectPayload {
+  projectTypesProjectType: ProjectType
+  projectsProject: Project
+}
+
+type AddToTagOnProjectPayload {
+  tagsTag: Tag
+  projectsProject: Project
+}
+
+type AddToToolOnProjectPayload {
+  toolsTool: Tool
+  projectsProject: Project
+}
+
 input CreateFile {
   name: String!
 }
 
+input CreateGallery {
+  image: String!
+  projectId: ID
+  project: GalleryprojectProject
+}
+
 input CreateProject {
+  description: String
   image: String!
   title: String!
+  galleriesIds: [ID!]
+  galleries: [ProjectgalleriesGallery!]
+  projectTypesIds: [ID!]
+  projectTypes: [ProjectprojectTypesProjectType!]
+  tagsIds: [ID!]
+  tags: [ProjecttagsTag!]
+  toolsIds: [ID!]
+  tools: [ProjecttoolsTool!]
+}
+
+input CreateProjectType {
+  name: String!
+  projectsIds: [ID!]
+  projects: [ProjectTypeprojectsProject!]
+}
+
+input CreateTag {
+  color: String!
+  name: String!
+  projectsIds: [ID!]
+  projects: [TagprojectsProject!]
+}
+
+input CreateTool {
+  name: String!
+  projectsIds: [ID!]
+  projects: [ToolprojectsProject!]
 }
 
 scalar DateTime
@@ -643,18 +697,283 @@ type FileSubscriptionPayload {
   previousValues: FilePreviousValues
 }
 
+type Gallery implements Node {
+  id: ID!
+  image: String!
+  project(filter: ProjectFilter): Project
+}
+
+input GalleryFilter {
+  """Logical AND on all given filters."""
+  AND: [GalleryFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [GalleryFilter!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  project: ProjectFilter
+}
+
+enum GalleryOrderBy {
+  id_ASC
+  id_DESC
+  image_ASC
+  image_DESC
+}
+
+type GalleryPreviousValues {
+  id: ID!
+  image: String!
+}
+
+input GalleryprojectProject {
+  description: String
+  image: String!
+  title: String!
+  galleriesIds: [ID!]
+  galleries: [ProjectgalleriesGallery!]
+  projectTypesIds: [ID!]
+  projectTypes: [ProjectprojectTypesProjectType!]
+  tagsIds: [ID!]
+  tags: [ProjecttagsTag!]
+  toolsIds: [ID!]
+  tools: [ProjecttoolsTool!]
+}
+
+input GallerySubscriptionFilter {
+  """Logical AND on all given filters."""
+  AND: [GallerySubscriptionFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [GallerySubscriptionFilter!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [_ModelMutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GallerySubscriptionFilterNode
+}
+
+input GallerySubscriptionFilterNode {
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  project: ProjectFilter
+}
+
+type GallerySubscriptionPayload {
+  mutation: _ModelMutationType!
+  node: Gallery
+  updatedFields: [String!]
+  previousValues: GalleryPreviousValues
+}
+
 type Mutation {
   createFile(name: String!): File
-  createProject(image: String!, title: String!): Project
+  createGallery(image: String!, projectId: ID, project: GalleryprojectProject): Gallery
+  createProject(description: String, image: String!, title: String!, galleriesIds: [ID!], galleries: [ProjectgalleriesGallery!], projectTypesIds: [ID!], projectTypes: [ProjectprojectTypesProjectType!], tagsIds: [ID!], tags: [ProjecttagsTag!], toolsIds: [ID!], tools: [ProjecttoolsTool!]): Project
+  createProjectType(name: String!, projectsIds: [ID!], projects: [ProjectTypeprojectsProject!]): ProjectType
+  createTag(color: String!, name: String!, projectsIds: [ID!], projects: [TagprojectsProject!]): Tag
+  createTool(name: String!, projectsIds: [ID!], projects: [ToolprojectsProject!]): Tool
   updateFile(id: ID!, name: String): File
-  updateProject(id: ID!, image: String, title: String): Project
+  updateGallery(id: ID!, image: String, projectId: ID, project: GalleryprojectProject): Gallery
+  updateProject(description: String, id: ID!, image: String, title: String, galleriesIds: [ID!], galleries: [ProjectgalleriesGallery!], projectTypesIds: [ID!], projectTypes: [ProjectprojectTypesProjectType!], tagsIds: [ID!], tags: [ProjecttagsTag!], toolsIds: [ID!], tools: [ProjecttoolsTool!]): Project
+  updateProjectType(id: ID!, name: String, projectsIds: [ID!], projects: [ProjectTypeprojectsProject!]): ProjectType
+  updateTag(color: String, id: ID!, name: String, projectsIds: [ID!], projects: [TagprojectsProject!]): Tag
+  updateTool(id: ID!, name: String, projectsIds: [ID!], projects: [ToolprojectsProject!]): Tool
   updateUser(id: ID!): User
   updateOrCreateFile(update: UpdateFile!, create: CreateFile!): File
+  updateOrCreateGallery(update: UpdateGallery!, create: CreateGallery!): Gallery
   updateOrCreateProject(update: UpdateProject!, create: CreateProject!): Project
+  updateOrCreateProjectType(update: UpdateProjectType!, create: CreateProjectType!): ProjectType
+  updateOrCreateTag(update: UpdateTag!, create: CreateTag!): Tag
+  updateOrCreateTool(update: UpdateTool!, create: CreateTool!): Tool
   updateOrCreateUser(update: UpdateUser!): User
   deleteFile(id: ID!): File
+  deleteGallery(id: ID!): Gallery
   deleteProject(id: ID!): Project
+  deleteProjectType(id: ID!): ProjectType
+  deleteTag(id: ID!): Tag
+  deleteTool(id: ID!): Tool
   deleteUser(id: ID!): User
+  addToGalleryOnProject(projectProjectId: ID!, galleriesGalleryId: ID!): AddToGalleryOnProjectPayload
+  addToProjectTypeOnProject(projectsProjectId: ID!, projectTypesProjectTypeId: ID!): AddToProjectTypeOnProjectPayload
+  addToTagOnProject(projectsProjectId: ID!, tagsTagId: ID!): AddToTagOnProjectPayload
+  addToToolOnProject(projectsProjectId: ID!, toolsToolId: ID!): AddToToolOnProjectPayload
+  removeFromGalleryOnProject(projectProjectId: ID!, galleriesGalleryId: ID!): RemoveFromGalleryOnProjectPayload
+  removeFromProjectTypeOnProject(projectsProjectId: ID!, projectTypesProjectTypeId: ID!): RemoveFromProjectTypeOnProjectPayload
+  removeFromTagOnProject(projectsProjectId: ID!, tagsTagId: ID!): RemoveFromTagOnProjectPayload
+  removeFromToolOnProject(projectsProjectId: ID!, toolsToolId: ID!): RemoveFromToolOnProjectPayload
   createUser: User
 }
 
@@ -666,9 +985,26 @@ interface Node {
 
 type Project implements Node {
   createdAt: DateTime!
+  description: String
+  galleries(filter: GalleryFilter, orderBy: GalleryOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Gallery!]
   id: ID!
   image: String!
+  projectTypes(filter: ProjectTypeFilter, orderBy: ProjectTypeOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectType!]
+  tags(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   title: String!
+  tools(filter: ToolFilter, orderBy: ToolOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tool!]
+
+  """Meta information about the query."""
+  _galleriesMeta(filter: GalleryFilter, orderBy: GalleryOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+
+  """Meta information about the query."""
+  _projectTypesMeta(filter: ProjectTypeFilter, orderBy: ProjectTypeOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+
+  """Meta information about the query."""
+  _tagsMeta(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+
+  """Meta information about the query."""
+  _toolsMeta(filter: ToolFilter, orderBy: ToolOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
 }
 
 input ProjectFilter {
@@ -699,6 +1035,46 @@ input ProjectFilter {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   id: ID
 
   """All values that are not equal to given value."""
@@ -819,11 +1195,29 @@ input ProjectFilter {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  galleries_every: GalleryFilter
+  galleries_some: GalleryFilter
+  galleries_none: GalleryFilter
+  projectTypes_every: ProjectTypeFilter
+  projectTypes_some: ProjectTypeFilter
+  projectTypes_none: ProjectTypeFilter
+  tags_every: TagFilter
+  tags_some: TagFilter
+  tags_none: TagFilter
+  tools_every: ToolFilter
+  tools_some: ToolFilter
+  tools_none: ToolFilter
+}
+
+input ProjectgalleriesGallery {
+  image: String!
 }
 
 enum ProjectOrderBy {
   createdAt_ASC
   createdAt_DESC
+  description_ASC
+  description_DESC
   id_ASC
   id_DESC
   image_ASC
@@ -834,9 +1228,16 @@ enum ProjectOrderBy {
 
 type ProjectPreviousValues {
   createdAt: DateTime!
+  description: String
   id: ID!
   image: String!
   title: String!
+}
+
+input ProjectprojectTypesProjectType {
+  name: String!
+  projectsIds: [ID!]
+  projects: [ProjectTypeprojectsProject!]
 }
 
 input ProjectSubscriptionFilter {
@@ -891,6 +1292,46 @@ input ProjectSubscriptionFilterNode {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   id: ID
 
   """All values that are not equal to given value."""
@@ -1011,6 +1452,18 @@ input ProjectSubscriptionFilterNode {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  galleries_every: GalleryFilter
+  galleries_some: GalleryFilter
+  galleries_none: GalleryFilter
+  projectTypes_every: ProjectTypeFilter
+  projectTypes_some: ProjectTypeFilter
+  projectTypes_none: ProjectTypeFilter
+  tags_every: TagFilter
+  tags_some: TagFilter
+  tags_none: TagFilter
+  tools_every: ToolFilter
+  tools_some: ToolFilter
+  tools_none: ToolFilter
 }
 
 type ProjectSubscriptionPayload {
@@ -1020,15 +1473,288 @@ type ProjectSubscriptionPayload {
   previousValues: ProjectPreviousValues
 }
 
+input ProjecttagsTag {
+  color: String!
+  name: String!
+  projectsIds: [ID!]
+  projects: [TagprojectsProject!]
+}
+
+input ProjecttoolsTool {
+  name: String!
+  projectsIds: [ID!]
+  projects: [ToolprojectsProject!]
+}
+
+type ProjectType implements Node {
+  id: ID!
+  name: String!
+  projects(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+
+  """Meta information about the query."""
+  _projectsMeta(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+}
+
+input ProjectTypeFilter {
+  """Logical AND on all given filters."""
+  AND: [ProjectTypeFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [ProjectTypeFilter!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  projects_every: ProjectFilter
+  projects_some: ProjectFilter
+  projects_none: ProjectFilter
+}
+
+enum ProjectTypeOrderBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type ProjectTypePreviousValues {
+  id: ID!
+  name: String!
+}
+
+input ProjectTypeprojectsProject {
+  description: String
+  image: String!
+  title: String!
+  galleriesIds: [ID!]
+  galleries: [ProjectgalleriesGallery!]
+  projectTypesIds: [ID!]
+  projectTypes: [ProjectprojectTypesProjectType!]
+  tagsIds: [ID!]
+  tags: [ProjecttagsTag!]
+  toolsIds: [ID!]
+  tools: [ProjecttoolsTool!]
+}
+
+input ProjectTypeSubscriptionFilter {
+  """Logical AND on all given filters."""
+  AND: [ProjectTypeSubscriptionFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [ProjectTypeSubscriptionFilter!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [_ModelMutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ProjectTypeSubscriptionFilterNode
+}
+
+input ProjectTypeSubscriptionFilterNode {
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  projects_every: ProjectFilter
+  projects_some: ProjectFilter
+  projects_none: ProjectFilter
+}
+
+type ProjectTypeSubscriptionPayload {
+  mutation: _ModelMutationType!
+  node: ProjectType
+  updatedFields: [String!]
+  previousValues: ProjectTypePreviousValues
+}
+
 type Query {
   allFiles(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [File!]!
+  allGalleries(filter: GalleryFilter, orderBy: GalleryOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Gallery!]!
   allProjects(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]!
+  allProjectTypes(filter: ProjectTypeFilter, orderBy: ProjectTypeOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectType!]!
+  allTags(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]!
+  allTools(filter: ToolFilter, orderBy: ToolOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tool!]!
   allUsers(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [User!]!
   _allFilesMeta(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allGalleriesMeta(filter: GalleryFilter, orderBy: GalleryOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   _allProjectsMeta(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allProjectTypesMeta(filter: ProjectTypeFilter, orderBy: ProjectTypeOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allTagsMeta(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allToolsMeta(filter: ToolFilter, orderBy: ToolOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   _allUsersMeta(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   File(id: ID, secret: String, url: String): File
+  Gallery(id: ID): Gallery
   Project(id: ID): Project
+  ProjectType(id: ID): ProjectType
+  Tag(id: ID): Tag
+  Tool(id: ID): Tool
   User(id: ID): User
   user: User
 
@@ -1039,10 +1765,614 @@ type Query {
   ): Node
 }
 
+type RemoveFromGalleryOnProjectPayload {
+  galleriesGallery: Gallery
+  projectProject: Project
+}
+
+type RemoveFromProjectTypeOnProjectPayload {
+  projectTypesProjectType: ProjectType
+  projectsProject: Project
+}
+
+type RemoveFromTagOnProjectPayload {
+  tagsTag: Tag
+  projectsProject: Project
+}
+
+type RemoveFromToolOnProjectPayload {
+  toolsTool: Tool
+  projectsProject: Project
+}
+
 type Subscription {
   File(filter: FileSubscriptionFilter): FileSubscriptionPayload
+  Gallery(filter: GallerySubscriptionFilter): GallerySubscriptionPayload
   Project(filter: ProjectSubscriptionFilter): ProjectSubscriptionPayload
+  ProjectType(filter: ProjectTypeSubscriptionFilter): ProjectTypeSubscriptionPayload
+  Tag(filter: TagSubscriptionFilter): TagSubscriptionPayload
+  Tool(filter: ToolSubscriptionFilter): ToolSubscriptionPayload
   User(filter: UserSubscriptionFilter): UserSubscriptionPayload
+}
+
+type Tag implements Node {
+  color: String!
+  id: ID!
+  name: String!
+  projects(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+
+  """Meta information about the query."""
+  _projectsMeta(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+}
+
+input TagFilter {
+  """Logical AND on all given filters."""
+  AND: [TagFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [TagFilter!]
+  color: String
+
+  """All values that are not equal to given value."""
+  color_not: String
+
+  """All values that are contained in given list."""
+  color_in: [String!]
+
+  """All values that are not contained in given list."""
+  color_not_in: [String!]
+
+  """All values less than the given value."""
+  color_lt: String
+
+  """All values less than or equal the given value."""
+  color_lte: String
+
+  """All values greater than the given value."""
+  color_gt: String
+
+  """All values greater than or equal the given value."""
+  color_gte: String
+
+  """All values containing the given string."""
+  color_contains: String
+
+  """All values not containing the given string."""
+  color_not_contains: String
+
+  """All values starting with the given string."""
+  color_starts_with: String
+
+  """All values not starting with the given string."""
+  color_not_starts_with: String
+
+  """All values ending with the given string."""
+  color_ends_with: String
+
+  """All values not ending with the given string."""
+  color_not_ends_with: String
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  projects_every: ProjectFilter
+  projects_some: ProjectFilter
+  projects_none: ProjectFilter
+}
+
+enum TagOrderBy {
+  color_ASC
+  color_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type TagPreviousValues {
+  color: String!
+  id: ID!
+  name: String!
+}
+
+input TagprojectsProject {
+  description: String
+  image: String!
+  title: String!
+  galleriesIds: [ID!]
+  galleries: [ProjectgalleriesGallery!]
+  projectTypesIds: [ID!]
+  projectTypes: [ProjectprojectTypesProjectType!]
+  tagsIds: [ID!]
+  tags: [ProjecttagsTag!]
+  toolsIds: [ID!]
+  tools: [ProjecttoolsTool!]
+}
+
+input TagSubscriptionFilter {
+  """Logical AND on all given filters."""
+  AND: [TagSubscriptionFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [TagSubscriptionFilter!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [_ModelMutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TagSubscriptionFilterNode
+}
+
+input TagSubscriptionFilterNode {
+  color: String
+
+  """All values that are not equal to given value."""
+  color_not: String
+
+  """All values that are contained in given list."""
+  color_in: [String!]
+
+  """All values that are not contained in given list."""
+  color_not_in: [String!]
+
+  """All values less than the given value."""
+  color_lt: String
+
+  """All values less than or equal the given value."""
+  color_lte: String
+
+  """All values greater than the given value."""
+  color_gt: String
+
+  """All values greater than or equal the given value."""
+  color_gte: String
+
+  """All values containing the given string."""
+  color_contains: String
+
+  """All values not containing the given string."""
+  color_not_contains: String
+
+  """All values starting with the given string."""
+  color_starts_with: String
+
+  """All values not starting with the given string."""
+  color_not_starts_with: String
+
+  """All values ending with the given string."""
+  color_ends_with: String
+
+  """All values not ending with the given string."""
+  color_not_ends_with: String
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  projects_every: ProjectFilter
+  projects_some: ProjectFilter
+  projects_none: ProjectFilter
+}
+
+type TagSubscriptionPayload {
+  mutation: _ModelMutationType!
+  node: Tag
+  updatedFields: [String!]
+  previousValues: TagPreviousValues
+}
+
+type Tool implements Node {
+  id: ID!
+  name: String!
+  projects(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+
+  """Meta information about the query."""
+  _projectsMeta(filter: ProjectFilter, orderBy: ProjectOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+}
+
+input ToolFilter {
+  """Logical AND on all given filters."""
+  AND: [ToolFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [ToolFilter!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  projects_every: ProjectFilter
+  projects_some: ProjectFilter
+  projects_none: ProjectFilter
+}
+
+enum ToolOrderBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type ToolPreviousValues {
+  id: ID!
+  name: String!
+}
+
+input ToolprojectsProject {
+  description: String
+  image: String!
+  title: String!
+  galleriesIds: [ID!]
+  galleries: [ProjectgalleriesGallery!]
+  projectTypesIds: [ID!]
+  projectTypes: [ProjectprojectTypesProjectType!]
+  tagsIds: [ID!]
+  tags: [ProjecttagsTag!]
+  toolsIds: [ID!]
+  tools: [ProjecttoolsTool!]
+}
+
+input ToolSubscriptionFilter {
+  """Logical AND on all given filters."""
+  AND: [ToolSubscriptionFilter!]
+
+  """Logical OR on all given filters."""
+  OR: [ToolSubscriptionFilter!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [_ModelMutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ToolSubscriptionFilterNode
+}
+
+input ToolSubscriptionFilterNode {
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  projects_every: ProjectFilter
+  projects_some: ProjectFilter
+  projects_none: ProjectFilter
+}
+
+type ToolSubscriptionPayload {
+  mutation: _ModelMutationType!
+  node: Tool
+  updatedFields: [String!]
+  previousValues: ToolPreviousValues
 }
 
 input UpdateFile {
@@ -1050,10 +2380,48 @@ input UpdateFile {
   name: String
 }
 
+input UpdateGallery {
+  id: ID!
+  image: String
+  projectId: ID
+  project: GalleryprojectProject
+}
+
 input UpdateProject {
+  description: String
   id: ID!
   image: String
   title: String
+  galleriesIds: [ID!]
+  galleries: [ProjectgalleriesGallery!]
+  projectTypesIds: [ID!]
+  projectTypes: [ProjectprojectTypesProjectType!]
+  tagsIds: [ID!]
+  tags: [ProjecttagsTag!]
+  toolsIds: [ID!]
+  tools: [ProjecttoolsTool!]
+}
+
+input UpdateProjectType {
+  id: ID!
+  name: String
+  projectsIds: [ID!]
+  projects: [ProjectTypeprojectsProject!]
+}
+
+input UpdateTag {
+  color: String
+  id: ID!
+  name: String
+  projectsIds: [ID!]
+  projects: [TagprojectsProject!]
+}
+
+input UpdateTool {
+  id: ID!
+  name: String
+  projectsIds: [ID!]
+  projects: [ToolprojectsProject!]
 }
 
 input UpdateUser {
